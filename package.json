@@ -1,0 +1,24 @@
+{
+  "name": "open-here",
+  "version": "1.0.0",
+  "description": "adds a .exe to the context menu as \"open here\"",
+  "main": "index.js",
+  "dependencies": {
+    "winreg": "^1.2.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaliumxyz/open-here.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaliumxyz/open-here/issues"
+  },
+  "homepage": "https://github.com/kaliumxyz/open-here#readme"
+}
