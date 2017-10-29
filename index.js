@@ -3,8 +3,15 @@
 
 const Registry = require('winreg')
 
+
 const path = process.argv[2]
 const name = process.argv[3]
+
+if(!path && !name){
+	console.log("you'll need to add a path and a name for the option") 
+	process.exit()
+}
+
 
 const regKey = new Registry({
 	hive: Registry.HKCU,
