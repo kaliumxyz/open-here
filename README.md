@@ -2,8 +2,10 @@
 > add anything to the context menu as "open here"
 
 A simple script that allows you to add anything to the context menu you want to.
-![side-effects](https://github.com/kaliumxyz/open-here/blob/wiki/undefined.PNG)
-be careful 
+
+
+![side-effects](https://github.com/kaliumxyz/open-here/raw/wiki/undefined.png)
+
 
 ## install
 Just clone the repo or download the script and you're set 😎.
