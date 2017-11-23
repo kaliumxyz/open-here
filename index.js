@@ -17,12 +17,19 @@ const regKey = new Registry({
 	hive: Registry.HKCU,
 	key: `\\Software\\Classes\\Directory\\background\\shell\\${name}`
 })
+
+const regSubKey = new Registry({
+	hive: Registry.HKCU,
+	key: `\\Software\\Classes\\Directory\\background\\shell\\${name}\\command`
+})
+
 const regParts = [
-	{key: 'command', name: '', value: `${path} "%V"`},
 	{name: '', value: `Open ${name} here`},
 	{name: 'Icon', value: `${path}`}
 ]
 
+regSubKey.set('', Registry.REG_EXPAND_SZ, `"${path}" "%V"`, err => err?console.error(err):"")
+
 regParts.forEach(x => {
-	regKey.set(x.name, Registry.REG_SZ, x.value, console.error)
+	regKey.set(x.name, Registry.REG_EXPAND_SZ, x.value, err => err?console.error(err):"")
 })
