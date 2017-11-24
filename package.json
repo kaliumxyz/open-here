@@ -4,6 +4,7 @@
   "description": "adds a .exe to the context menu as \"open here\"",
   "main": "index.js",
   "dependencies": {
+    "electron": "^1.7.9",
     "winreg": "^1.2.4"
   },
   "devDependencies": {},

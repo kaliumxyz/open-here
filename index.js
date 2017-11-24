@@ -2,6 +2,23 @@
 'use strict'
 
 const Registry = require('winreg')
+const {BrowserWindow} = require('electron')
+
+const {app} = require('electron')
+app.on('window-all-closed', () => {
+  app.quit()
+})
+
+let win;
+
+
+app.once('ready', () => {
+	win = new BrowserWindow({width: 800, height: 600})
+	win.on('closed', () => {
+		win = null
+	})
+	win.loadURL(`file://${__dirname}/app/index.html`)
+})
 
 
 const path = process.argv[2]
