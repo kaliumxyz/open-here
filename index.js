@@ -6,47 +6,42 @@ const {BrowserWindow} = require('electron')
 
 const {app} = require('electron')
 app.on('window-all-closed', () => {
-  app.quit()
+	app.quit()
 })
+
+const user = require("os").userInfo().username
+
 
 let win;
 
 
 app.once('ready', () => {
-	win = new BrowserWindow({width: 800, height: 600})
+	win = new BrowserWindow({width: 400, height: 400, frame: false, transparent: true, icon: __dirname + '/app/assets/ubuntu.png', resizable: false})
 	win.on('closed', () => {
 		win = null
 	})
 	win.loadURL(`file://${__dirname}/app/index.html`)
 })
 
+function editReg() {
+	const regKey = new Registry({
+		hive: Registry.HKCU,
+		key: `\\Software\\Classes\\Directory\\background\\shell\\${name}`
+	})
 
-const path = process.argv[2]
-const name = process.argv[3]
+	const regSubKey = new Registry({
+		hive: Registry.HKCU,
+		key: `\\Software\\Classes\\Directory\\background\\shell\\${name}\\command`
+	})
 
-if(!path && !name){
-	console.log("you'll need to add a path and a name for the option") 
-	process.exit()
+	const regParts = [
+		{name: '', value: `Open Ubuntu here`},
+		{name: 'Icon', value: `"C:\\Users\\${user}\\AppData\\Local\\Microsoft\\WindowsApps\\ubuntu.exe" "-c" "cd %V; exec bash"`}
+	]
+
+	regSubKey.set('', Registry.REG_EXPAND_SZ, `"C:\\Users\\${user}\\AppData\\Local\\Microsoft\\WindowsApps\\ubuntu.exe" "-c" "cd %V; exec bash"`, err => err ? console.error(err) : "")
+
+	regParts.forEach(x => {
+		regKey.set(x.name, Registry.REG_EXPAND_SZ, x.value, err => err?console.error(err):"")
+	})
 }
-
-
-const regKey = new Registry({
-	hive: Registry.HKCU,
-	key: `\\Software\\Classes\\Directory\\background\\shell\\${name}`
-})
-
-const regSubKey = new Registry({
-	hive: Registry.HKCU,
-	key: `\\Software\\Classes\\Directory\\background\\shell\\${name}\\command`
-})
-
-const regParts = [
-	{name: '', value: `Open ${name} here`},
-	{name: 'Icon', value: `${path}`}
-]
-
-regSubKey.set('', Registry.REG_EXPAND_SZ, `"${path}" "%V"`, err => err?console.error(err):"")
-
-regParts.forEach(x => {
-	regKey.set(x.name, Registry.REG_EXPAND_SZ, x.value, err => err?console.error(err):"")
-})
