@@ -1,6 +1,12 @@
 # open-here
 > add anything to the context menu as "open here"
 
+---
+
+ ⚠️ This project is unfinished and is not intended to be used by anyone!
+
+---
+
 A simple script that allows you to add anything to the context menu you want to.
 
 
